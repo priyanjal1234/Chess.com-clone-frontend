@@ -84,7 +84,7 @@ const CreateGame = () => {
 
       <div className="mt-5">
         {games?.map((game) => (
-          <div className="px-3 py-2 w-[200px] rounded-lg bg-zinc-700 flex items-center justify-between">
+          <div className="px-3 py-2 w-[200px] rounded-lg bg-zinc-700 mt-4 flex items-center justify-between">
             <div>
               <h2>{game?.name}</h2>
               <h2>{game?.players} Player</h2>
