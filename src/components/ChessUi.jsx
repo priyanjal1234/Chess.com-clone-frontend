@@ -39,7 +39,7 @@ const ChessUi = () => {
 
   function onPieceDrop(source, target) {
     const move = source + target;
-    console.log("Move attempted:", move);
+    
     socket.emit("move", { gameId, move });
   }
 
