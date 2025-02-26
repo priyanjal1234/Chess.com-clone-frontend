@@ -5,12 +5,12 @@ import { Chessboard } from "react-chessboard";
 
 const ChessUi = () => {
   let { gameId } = useParams();
-  const [fen, setfen] = useState("start");
-  const [color, setcolor] = useState("white");
+  const [fen, setFen] = useState("start");
+  const [color, setColor] = useState("white");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     connectSocket();
-
     socket.emit("join-game", { gameId });
 
     socket.on("game-full", function (data) {
@@ -19,16 +19,18 @@ const ChessUi = () => {
     });
 
     socket.on("color-assignment", function ({ color }) {
-      setcolor(color);
+      setColor(color);
     });
 
     socket.on("invalid-move", function (error) {
-      // Use setTimeout to prevent blocking the drag event
-      setTimeout(() => alert(error), 0);
+      // Update state rather than calling alert
+      setErrorMessage(error);
+      // Optionally clear the error after a short delay
+      setTimeout(() => setErrorMessage(""), 3000);
     });
 
     socket.on("game-state", function (newFen) {
-      setfen(newFen);
+      setFen(newFen);
     });
 
     return () => {
@@ -36,20 +38,23 @@ const ChessUi = () => {
       socket.off("color-assignment");
       socket.off("invalid-move");
     };
-  }, []);
+  }, [gameId]);
 
   function onPieceDrop(source, target) {
     const move = source + target;
-    
     socket.emit("move", { gameId, move });
-
-    return false
+    // Return false to let the board be controlled by the server state
+    return false;
   }
 
   return (
     <div className="w-full h-screen bg-zinc-900 text-white flex flex-col items-center justify-center">
       <h2 className="text-xl font-semibold mb-6">Chess Game: {gameId}</h2>
-
+      {errorMessage && (
+        <div className="bg-red-500 p-2 rounded mb-4">
+          {errorMessage}
+        </div>
+      )}
       <div className="flex justify-center items-center">
         <Chessboard
           position={fen}
