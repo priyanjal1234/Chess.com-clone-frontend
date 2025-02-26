@@ -41,6 +41,8 @@ const ChessUi = () => {
     const move = source + target;
     
     socket.emit("move", { gameId, move });
+
+    return false
   }
 
   return (
