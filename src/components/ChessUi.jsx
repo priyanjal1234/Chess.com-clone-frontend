@@ -23,7 +23,8 @@ const ChessUi = () => {
     });
 
     socket.on("invalid-move", function (error) {
-      alert(error);
+      // Use setTimeout to prevent blocking the drag event
+      setTimeout(() => alert(error), 0);
     });
 
     socket.on("game-state", function (newFen) {
