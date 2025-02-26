@@ -23,11 +23,14 @@ const ChessUi = () => {
       setColor(color);
     });
 
-    socket.on("invalid-move", function (error) {
-      // Update state rather than calling alert
-      setErrorMessage(error);
-
-      setBoardKey(Date.now());
+    socket.on("invalid-move", function ({error,fen}) {
+      try{
+        setErrorMessage(error)
+        setFen(fen)
+      }
+      catch(error){
+        console.log(error)
+      }
       
     });
 
