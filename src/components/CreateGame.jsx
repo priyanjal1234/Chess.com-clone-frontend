@@ -16,7 +16,7 @@ const CreateGame = () => {
     async function fetchRunningGames() {
       try {
         let runningGamesRes = await axios.get(
-          "http://localhost:3000/api/games/running-games",
+          "https://chess-com-clone-backend.onrender.com/api/games/running-games",
           { withCredentials: true }
         );
         if (runningGamesRes.status === 200) {
@@ -34,7 +34,7 @@ const CreateGame = () => {
 
     try {
       let response = await axios.post(
-        "http://localhost:3000/api/games/create-game",
+        "https://chess-com-clone-backend.onrender.com/api/games/create-game",
         { name },
         { withCredentials: true }
       );
@@ -50,7 +50,7 @@ const CreateGame = () => {
   async function handleJoinGame(gameId) {
     try {
       let joinRoomRes = await axios.put(
-        `http://localhost:3000/api/games/join-game/${gameId}`,
+        `https://chess-com-clone-backend.onrender.com/api/games/join-game/${gameId}`,
         {},
         { withCredentials: true }
       );
