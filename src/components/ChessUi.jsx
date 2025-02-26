@@ -25,6 +25,8 @@ const ChessUi = () => {
     socket.on("invalid-move", function (error) {
       // Update state rather than calling alert
       setErrorMessage(error);
+
+      setBoardKey(Date.now());
       
     });
 
@@ -56,6 +58,7 @@ const ChessUi = () => {
       )}
       <div className="flex justify-center items-center">
         <Chessboard
+          key={boardKey}
           position={fen}
           onPieceDrop={onPieceDrop}
           boardWidth={500}
