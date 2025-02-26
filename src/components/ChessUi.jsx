@@ -8,7 +8,8 @@ const ChessUi = () => {
   const [fen, setFen] = useState("start");
   const [color, setColor] = useState("white");
   const [errorMessage, setErrorMessage] = useState("");
-
+  const [boardKey, setBoardKey] = useState(Date.now());
+  
   useEffect(() => {
     connectSocket();
     socket.emit("join-game", { gameId });
