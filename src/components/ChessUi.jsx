@@ -25,8 +25,7 @@ const ChessUi = () => {
     socket.on("invalid-move", function (error) {
       // Update state rather than calling alert
       setErrorMessage(error);
-      // Optionally clear the error after a short delay
-      setTimeout(() => setErrorMessage(""), 3000);
+      
     });
 
     socket.on("game-state", function (newFen) {
